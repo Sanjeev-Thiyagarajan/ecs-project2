@@ -11,7 +11,7 @@ const mongoURL = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWO
 
 // const mongoURL = `mongodb://localhost:27017/?authSource=admin`;
 
-app.get("/", async (req, res) => {
+app.get("/notes", async (req, res) => {
   try {
     const notes = await Note.find();
     res.status(200).json({
@@ -26,7 +26,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/:id", async (req, res) => {
+app.get("/notes/:id", async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
 
@@ -46,7 +46,7 @@ app.get("/:id", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("/notes", async (req, res) => {
   console.log(req.body);
   try {
     const note = await Note.create(req.body);
@@ -63,7 +63,7 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.patch("/:id", async (req, res) => {
+app.patch("/notes/:id", async (req, res) => {
   try {
     const note = await Note.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -86,7 +86,7 @@ app.patch("/:id", async (req, res) => {
   }
 });
 
-app.delete("/:id", async (req, res) => {
+app.delete("/notes/:id", async (req, res) => {
   try {
     const note = await Note.findByIdAndDelete(req.params.id);
     console.log(note);
